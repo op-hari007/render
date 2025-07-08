@@ -10,18 +10,20 @@ app.get('/', (req, res) => {
   const timestamp = new Date().toISOString();
   const log = ${timestamp} - IP: ${ip}\n;
 
-  // Append to a text file
   fs.appendFileSync(path.join(__dirname, 'ip-log.txt'), log);
-
-  // Also log in terminal
   console.log(log);
 
-  res.send(<h1>Hello 👋</h1><p>Your IP has been logged.</p>);
+  res.send(<h1>Hello 👋</h1><p>Your IP has been logged. (${ip})</p>);
 });
 
 app.get('/view', (req, res) => {
-  const logs = fs.readFileSync(path.join(__dirname, 'ip-log.txt'), 'utf-8');
-  res.type('text').send(logs);
+  const filePath = path.join(__dirname, 'ip-log.txt');
+  if (fs.existsSync(filePath)) {
+    const logs = fs.readFileSync(filePath, 'utf-8');
+    res.type('text').send(logs);
+  } else {
+    res.status(404).send('No logs yet.');
+  }
 });
 
 app.listen(PORT, () => {
