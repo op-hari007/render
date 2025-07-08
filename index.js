@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
   fs.appendFileSync(path.join(__dirname, 'ip-log.txt'), log);
   console.log(log);
 
-  res.send(<h1>Hello 👋</h1><p>Your IP has been logged. (${ip})</p>);
+  res.send(`<h1>Hello 👋</h1><p>Your IP has been logged. (${ip})</p>`);
 });
 
 app.get('/view', (req, res) => {
