@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 app.get('/', (req, res) => {
   const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   const timestamp = new Date().toISOString();
-  const log = ${timestamp} - IP: ${ip}\n;
+  const log = `${timestamp} - IP: ${ip}\n`;
 
   fs.appendFileSync(path.join(__dirname, 'ip-log.txt'), log);
   console.log(log);
